@@ -27,4 +27,17 @@ Los bloques de creación son:
 
 A veces se hace referencia como contenido de Power BI y, dicho contenido se encuentra en las áreas de trabajo.
 
-![Imagen de flujo de lo que se habló](C:\Users\brian\OneDrive\Desktop\Folders\CursoPowerBI\Imagenes de relevancia\Flujo Power BI.png)
+![Imagen de flujo de lo que se habló](Imagenes%20de%20relevancia/Flujo%20Power%20BI.png)
+
+## Servicios de Power BI
+
+- Bases de datos en la nube: desde el servicio de Power BI se puede conectar con:
+    - Azure SQL Database
+    - Azure SQL Data Warehouse
+    - Spark en HDInstinct de Azure
+
+- Conexiones a otras bases de datos: existen mas de 100 conexiones a origenes de datos con Power BI, entre las cuales de cuales destacan:
+XML, bases de datos con access, Adobe Analytics, Amazon RedShift, azure analysis services, excel, facebook, github, google analytics, Google big Query, JSON, MySQL, Oracle, PDF, Script de Python, Script de R, Survey Monkey, Texto o CSV, Web, Objetos/informes de salesforce.
+
+## Conexión a origenes de datos
+
