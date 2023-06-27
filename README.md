@@ -41,3 +41,33 @@ XML, bases de datos con access, Adobe Analytics, Amazon RedShift, azure analysis
 
 ## Conexión a origenes de datos
 
+Para ver las diferentes conexiones a datos que ofrece Power BI, se va a inicio, en la sección de datos, seleccionar el icono "obtener datos", se desplega, seleccionar mas y ahí están todas las posibles conexiones.
+
+## Append y Merge
+
+Cuando una tabla tiene una información similar, pero en columnas diferentes, es decir, que está separada y se quiere mezclar en una sola tabla para luego mostrar sus valores, se hace de la siguiente manera:
+
+- Si es un archivo de excel y este tiene las columnas separadas, se abre en Power BI y se seleccionan todas las tablas sobre las cuales se va a trabajar.
+- Seleccionar transformar datos (transform data) y abre una nueva ventana
+- En la sección de combinar (combine) seleccionar anexar consultas (append queries), allí seleecionar consultas para crear una nueva (append queries as new)
+- Pregunta si se quieren apendizar 2 tablas o 3 o más, seleccionar la opción a conveniencia.
+- Seleccionar la primer tabla que se desea y posteriormente la que se le va a mezclar
+- Una vez apendizadas o mezcladas (append), se procede a combinarlas (merge)
+- Seleccionar combinar consultas (merge queries), luego combinar consultas para crear una nueva (merge queries as new)
+- En caso que se haya hecho un append, se creará una tabla llamada append1; se va a seleccionar esa tabla y luego se selecciona la llave (id), selecciona el tipo de combinación que se desea (generalmente se deja el que aparece por defecto)
+- En caso que aparezca una información diferente a la deseada y diga "table" se selecciona la flecha que aparece en la cabecera y se elige el campo que se desea dejar.
+
+## Reemplazar valores
+
+En caso que haya una actualización con un campo específico en una base de datos, por ejemplo una nueva cantidad en un campo específico se hace lo siguiente:
+
+- Seleccionar la base de datos sobre la cual se va a trabajar
+- Ir a la sección de consultas (queries), seleccionar transformar datos (transform data)
+- Abrirá la base, al lado izquierdo se ven las bases que se tienen, se va a la base que se desea modificar
+- Selecciona el dato que se quiere cambiar
+- Ir al menú de transformar (transform), seleccionar la opción reemplazar los valores (replace values)
+- Click en cerrar y aplicar (clase & apply)
+- Se volverá a cargar la información con los cambios aplicados y se verá reflejado en la base de datos
+
+## Formato de datos
+
