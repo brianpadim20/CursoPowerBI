@@ -69,5 +69,54 @@ En caso que haya una actualización con un campo específico en una base de dato
 - Click en cerrar y aplicar (clase & apply)
 - Se volverá a cargar la información con los cambios aplicados y se verá reflejado en la base de datos
 
-## Formato de datos
+## Detección de errores al cargar una base de datos
 
+Cuando hay un error detectado y para reemplazarlos, simplemente se va a la pestaña transformar, selecciona la flechita de transformar valores, desplega, reemplazar errores y poner un valor por el cual se van a reemplazar estos errores.
+
+Otra forma es seleccionando la columna, darle click derecho al título, seleccionar la opción quitar errores y los quitará automáticamente.
+
+Otra forma es seleccionar la columna, ir a la pestaña de inicio, desplegar conservar filas, seleccionar conservar errores.
+
+Mantiene las mismas filas y no le quita información a la base, mantiene los errores, pero los ignora.
+
+Selecciona cerrar y aplicar y listo, la base de datos se cargará correctamente.
+
+En caso que la base de datos esté en una nueva ruta se hace lo siguiente:
+- en el menú de inicio, desplegar transformar datos, configuración de origen de datos
+- Click en cambiar de origen
+- Buscar donde está guardado el archivo
+- Click en aceptar y cerrar
+- Una vez actualizado se mostrará la base de datos que se necesita
+- Si se trataron errores con anterioridad, no es necesario volverlos a tratar; la base de datos se actualizará de manera correcta
+
+## Pivots & Unpivots
+
+**Unpivot:** Es la forma de desvincular datos a través de un tributo o varios tributos conocido como columnas, transponerlos en una sola columna, donde cada entrada será un atributo y convertir una segunda columna en valores
+
+![pivot](Imagenes%20de%20relevancia/imagen%20previa%20a%20pivot.png)
+
+En la imagen de arriba se ve una información de id cliente (1) y ventas realizadas desde 01(enero) hasta 11(noviembre); el unpivot consiste en poner una columna con el id del cliente, otra columna con los meses y otra con las ventas por mes; de la siguiente manera:
+
+![unpivot](Imagenes%20de%20relevancia/unpivot.png)
+
+**Pivot:** Es el paso opuesto al unpivot, es decir que si se tienen las columnas con id cliente, fecha y ventas, todo eso se pase a filas; donde id sea una fila, los meses las columnas y las ventas el valor correspondiente a cada mes.
+
+En power BI se hace de la siguiente manera:
+- Cargar la base de datos
+- Seleccionar la hoja de interés
+- Transformar datos
+- En el power query verificar que haya respetado los tipos de datos
+- Para el unpivot:
+    - seleccionar las columas o atributos a los cuales se les quiere realizar esta función
+    - Click en el menú transformar
+    - Desplegar dinamización de columnas (unpivot columns)
+    - Seleccionar anular dinamización de columnas seleccionadas únicamente (unpivot only selected columns)
+    - Dará un atributo que es cada entrada del mes y valor correspondiente
+- Para el pivot:
+    - Se selecciona la columna que se quiere transponer en fila (únicamente la columna del atributo)
+    - Seleccionar transformar columna dinámica (pivot column)
+    - Abrirá una nueva ventana donde piden un nombre para crear columnas nuevas, seleccionar la columna de valores
+    - Desplegar opciones avanzadas
+    - Da una opción de función de valor agregado, si los registros son únicos por cliente o atributo, dará el mismo valor
+    - Si no se sabe si hay registros duplicados o no, seleccionar la opción "no agregar"
+    - Aceptar y convierte las filas en columnas
