@@ -191,5 +191,49 @@ Ahora lo que sigue es relacionarlos, para esto ir a la tercera opción del lado 
 
 ---
 
-## Duplicado y referencia
+## Diferencia entre duplicado y referencia
 
+- Duplicar crea una base exactamente igual, respetando cada consulta que se hizo en los pasos aplicados, sirve para realizar las mismas consultas a otra base, esto para cuando se requieran reutilizar las consultas.
+
+- Referencia: Es necesario ir a la base original, click derecho y seleccionar referencia, solamente respeta la base salida, es decir a la cual se le aplicó la última consulta, pero no muestra los pasos aplicados. Usar la referencia es útil cuando se quieren realizar pasos o consultas posteriores a las que se le realizan a la consulta base.
+
+---
+
+## Tablas manuales
+
+Tener en cuenta que se pueden crear máximo 3000 filas (o celdas)
+
+- En la sección de inicio ir a la parte de especificar (o introducir) datos, en el apartado de datos, abrirá una interfaz para crear tablas, por default aparece columna 1
+- En los *s se integra una columna o fila nueva
+- Para editar el nombre, solamente se para sobre el nombre de la columna
+- Una vez lista, darle click en editar y abrirá Power Query
+
+---
+
+## Index
+
+**Como agregar una columna nueva de índica?**
+
+- Cargar la base con la cual se vaya a trabajar
+- Click en transformar datos, para ir a power query
+- Verificar que el tipado de datos sea correcto
+- Click en el menú agregar columna
+- Columna de índice, desplegar el menú y aparecen 3 opciones
+- Seleccionar la opción a convenir:
+- desde cero, crea una columna de índice desde el cero hasta el último registro (n-1 registros)
+- desde uno, crea una columna de índice desde el 1 hasta el último registro (n registros)
+- Personalizado: decirle el índice el inicial y de cuanto va incrementando
+
+---
+
+## Columnas condicionales
+
+- Cargar la base con la cual se vaya a trabajar
+- Click en transformar datos, para ir a power query
+- Verificar que el tipado de datos sea correcto
+- Click en el menú agregar columna
+- En la sección "General", seleccionar columna condicional. Aparece una ventana emergente
+    - Poner el nombre de la columna
+    - Los condicionales respectivos
+- Cerrar y aplicar
+- Solucionar los posibles errores que genere
