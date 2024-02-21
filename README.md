@@ -237,3 +237,17 @@ Tener en cuenta que se pueden crear máximo 3000 filas (o celdas)
     - Los condicionales respectivos
 - Cerrar y aplicar
 - Solucionar los posibles errores que genere
+
+---
+
+# Query editor vs Data Model (Power Pivot)
+
+No es necesario usar Power Query y Power Pivot. Son herramientas independientes y es posible que solo se necesite una u otra.
+
+Power Query puede preparar conjuntos de datos simples pero grandes para el análisis. Power Pivot es para modelos mas complejos.
+
+Aunque se pueden utilizar de forma independiente, estas dos herramientas se complementan. Power Pivot contiene características para importar y dar forma a datos, pero se recomienda dejar este trabajo a Power Query.
+
+Luego, los datos se cargan en el modelo para que Power Pivot comience a establecer relaciones y a crear medidas mediante lenguaje DAX.
+
+
