@@ -283,4 +283,127 @@ M y DAX no dependen el uno del otro y siguen estructuras lógicas totalmente dif
 
 ---
 
+## Cálculo DAX Columna
+
+Para usar lenguaje DAX para calcular una columna:
+
+- Obtener los datos e ir a transformar datos.
+- Seleccionar la base en campos
+- Seleccionar nueva columna
+- Aparecerá una igualdad, del lado izquierdo se pondrá el nombre, del lado derecho se usa la expresión en dax (parecida a la de excel)
+    
+        **Ejemplo**: if(LogicalTest: que es una pregunta o un test lógico[columna]), ResultIfTrue: "Sentencia o resultado si es verdadero", ifFalse "sentencia o resultado si la sentencia es falsa")
+
+        if(base_soc [deuda_act] == 0, "No presenta deuda", "Saldo mayor a cero")
+
+Así aparecerá una nueva columna
+
+## Cálculo DAX Indicadores
+
+Para realizar un indicador con el lengüaje DAX:
+
+- Obtener los datos e ir a transformar datos.
+- Una vez obtenidos los datos que se necesitan aplicar cambios.
+- Seleccionar la opción nueva medida ó medida rápida y se habilitará un cuadro de texto con una igualdad
+    - En el lado izquierdo irá el nombre de la medida que se quiere tener.
+    - En el lado derecho irá la base con la cual se va a trabajar y entre paréntesis las operaciones con las columnas que se están trabajando)
+
+            **Ejemplo:**
+            Porcentaje_pago = sum(nombre_bd[col1]) / sum (nombre_bd[col2])
+
+Despues de presionar Enter para crear esta columna nueva, no se crea en la base sino en los campos, pero no la muestra como una columna nueva.
+
+Para poder visualizar de forma rápida, se procede a meterla dentro de la visualización de matríz.
+
+- Ir al apartado de gráficas
+- En el apartado de visualizaciones seleccionar Matriz
+
+![Matriz](Imagenes%20de%20relevancia/Gráfico%20Matriz.png)
+
+- Seleccionar el campo creado (porcentaje de pago en este caso) y arrastrarlo al apartado Valores
+
+---
+
+## Calculate
+
+![Calculate](Imagenes%20de%20relevancia/Funcion%20calculate.png)
+
+**Los filtros pueden ser:**
+- Expresiones de filtro booleano
+- Expresión de filtro de tabla
+- Funciones de modificación de filtros
+
+**Expresiones de filtro booleano:**
+Un filtro de expresión booleana es una expresión que se evalúa como VERDADERO o FALSO. Hay varias reglas que se deben cumplir:
+- Pueden hacer referencia a columnas de una sola tabla.
+- No pueden hacer referencia a medidas.
+- No pueden usar una función CALCULAR anidada.
+- No pueden usar funciones que escanean o devuelven una tabla, incluidas las funciones de agregación.
+
+**Expresiones de filtro de tabla:**
+Un filtro de expresión de tabla aplica un objeto de tabla como filtro. Podría ser una referencia a una tabla modelo, pero es más probable que sea una función que devuelve un objeto de tabla. Puede utilizar la función FILTRO para aplicar condiciones de filtro complejas, incluidas auqellas que no se pueden definir mediante una expresión de filtro booleana.
+
+**Funciones de modificación de filtro:**
+Permiten hacer más que simplemente agregar filtros, Porporcionan un control al modificar el contexto del fiultro
+
+## Calculate on all
+
+All es una modificación de filtro sirve para ignorar algunos filtros o todos los filtros, dependiendo el tipo de all que se utilice.
+
+- Cargar la base de datos con la cual se va a trabajar, click en transformar
+- Hacer la depuración correspondiente y dejar las columnas con las cuales se quiere trabajar.
+- Crear una visualización de Matriz, seleccionar Matriz
+    - Llenar el campo de filas de la matríz con los valores requeridos
+    - Llenar el campo de valores de la matriz para que segmente por tipo de cliente.
+
+**Como ejemplo se trabajará con la tabla b_tipo_soc**
+
+- Conservar las columnas id_cliente,venta trimestral, tipo_cliente y sucursal
+- Cerrar y aplicar y se podrá visualizar de lado de campos
+- Crear una visualización de Matriz
+- Para que segmente por tipo de cliente, se arrastra este campo a filas
+- Para segmentar la venta trimestral, se pone en valores
+
+**NOTA**
+---
+Para que la fuente se vea un poco más grande, seleccionar el rodillito de visualización (o click en el pincel que indica visualización), ir al apartado de valores y ajustar el tamño del texto en caso de ser necesario, igual que los encabezados de columna y de fila y también se puede seleccionar el tipo de fuente.
+
+Y para cambiar el formato de un campo dando click sobre el campo que se desea cambiar, en la parte de arriba, en herramienta de tablas se verá que se habilita formato, se selecciona el que se desee y se va a actualizar instantáneamente. En este caso se selecciona el formato moneda.
+
+---
+
+Se desea ver que porcentaje de la venta total consumió cada tipo de cliente, entonces, para esto se crea una nueva medida usando calculate con all, esto servirá para ignorar u obtener el valor de la venta trimestral total.
+
+- Ir a la pestaña de inicio, sección cálculos, seleccionar nueva medida
+- Del lado izquiero de la igualdad irá el nombre de la medida, el cual será PORC_VTIM_TIPOCLIENTE (Porcentaje valor trimestral tipo de cliente)
+
+        PORC_VTIM_TIPOCLIENTE = SUM(B_tipo_soc[venta_trimestral]) / CALCULATE(SUM(B_tipo_soc[venta_trimestral]), ALL(B_tipo_soc))
+
+En este ejemplo no importa que se ignore todo, ya que el único filtro que se tiene es el tipo de cliente.
+
+Una vez ejecutado, notar que en Datos se crea PORC_VTIM_TIPOCLIENTE, arrastrarlo al campo de valores y se podrá ver el porcentaje de participación de cada tipo de cliente
+
+**Segundo ejemplo**
+---
+
+se agrega un nuevo filtro a la parte de filas de la matriz, el cual será el nombre de la sucursal, aparece un signo + para poder ver la sucursal de cada tipo de cliente y mostrará los valores por cada sede
+
+Si se quiere ver el porcentaje de participación de cada tipo de cliente respecto a la tienda
+
+Para esto, se crea una nueva medida
+- Ir a la pestaña de inicio, sección cálculos, seleccionar nueva medida
+- Del lado izquiero de la igualdad irá el nombre de la medida, el cual será PORC_REPRE_SUC (Porcentaje representativo por sucursal)
+
+        PORC_REPRE_SUC = SUM(B_tipo_soc[venta_trimestral]) / CALCULATE(SUM(B_tipo_soc[venta_trimestral]), ALL(B_tipo_soc[tipo_cliente]))
+
+Se ignora el filtro de tipo de cliente, porque se quiere que la venta total de tipo de cliente se verá afectada por tipo de cliente y por sucursal, pero la segunda expresión se verá afectada por el tipo de sucursal, es decir que sume la venta trimestral ignorando el tipo de cliente 
+
+Una vez creada esta medida, se procede a arrastrar al campo de valores.
+
+Esto mostrará el porcentaje de participación por tipo de cliente en cada ciudad.
+
+**All Except**
+---
+
+Es una variante del tipo de filtro all, ignora todos los campos excepto el que se está mencionando.
 
