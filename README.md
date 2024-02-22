@@ -410,4 +410,30 @@ Es una variante del tipo de filtro all, ignora todos los campos excepto el que s
 
 ## Calculate on filter
 
-Se trabajará con el ejemplo anteriormente creado
+Se trabajará con el ejemplo anteriormente creado con calculate.
+
+Ahora lo que se quiere es obtener la venta trimestral obteniendo la visualización tipo card o tarjeta con la venta trimestral para los clientes tipo oro, otra con la venta trimestral para los clientes tipo oro que pertenezcan a la sucursal de OAX y otra con la venta trimestral con los clientes tipo oro que pertenezcan a PUE o QRO..
+
+Para esto se usa la función calculate con filter
+
+- Ir a cálculos, nueva medida
+- Del lado derecho el valor es VTRIM_CLIENTESORO (Venta trimestral clientes oro)
+        
+        VTRIM_CLIENTEORO = CALCULATE(SUM(base_soc[venta_trimestral]), base_soc[tipo_cliente] == "Cliente Oro")
+
+- Ir a la visualizaciones, seleccionar tarjeta y agregar el campo creado y debe coincidir con la que está en la matriz.
+
+Aquí se usa la función filter, debido a que la visualización que se requería era una tarjeta.
+
+Ahora se usará otra tarjeta para los clientes tipo oro que pertenecen a la sucursal de guajaca (OAX)
+
+- Ir a cálculos, nueva medida
+- Del lado derecho el valor es VTRIM_ORO_OAX (Venta trimestral clientes oro de la sucursal de guajaca)
+
+        VTRIM_ORO_OAX = CALCULATE(SUM(base_soc[venta_trimestral]), base_soc[tipo_cliente] == "Cliente Oro" && base_soc[nombre_suc] == "OAX")
+
+
+Y ara Puebla o Queretaro:
+
+    VTRIM_ORO_PUE_QRO = CALCULATE(SUM(base_soc[venta_trimestral]), base_soc[tipo_cliente] == "Cliente ORO" && (base_soc[nombre_suc] == "PUE" || base_soc[nombre_suc] == "QRO"))
+
