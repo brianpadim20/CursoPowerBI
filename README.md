@@ -250,4 +250,37 @@ Aunque se pueden utilizar de forma independiente, estas dos herramientas se comp
 
 Luego, los datos se cargan en el modelo para que Power Pivot comience a establecer relaciones y a crear medidas mediante lenguaje DAX.
 
+---
+
+## Relaciones y cardinalidad
+
+Lo primero es obtener los datos de la base a la cual se vaya a trabajar y luego, transformar datos.
+
+En la tercera pestaña donde muestra las relaciones de las bases (modelo) se ve la base, si se quiere por ejemplo, tener una información específica para un dato, por ejemplo en qué sucursal bancaria está cada cliente .
+
+Para lograr esto:
+- Click en obtener datos
+- Seleccionar la base con la cual se va a relacionar (uno a uno, uno a muchos, muchos a muchos)
+    - Para editar esta relación, seleccionar la línea que conecta ambas tablas, esta se resaltará
+    - Click derecho y da dos opciones (eliminar relación y propiedades). 
+    - Seleccionar los campos que se quieran relacionar y listo
+
+La cardinalidad es la relacion: Muchos a uno, uno a uno, muchos a muchos.
+
+Esto se usa en el esquema tipo estrella.
+
+---
+
+# Lenguaje M vs DAX
+
+Power BI admite dos idiomas diferentes, lenguaje M y DAX (Expresión de análisis de datos) que se pueden usar para filtrar, administrar y visualizar datos.
+
+M se puede considerar como un lenguaje de fórmulas de consulta y se puede usar en el editor de consultas de Power BI para preparar los datos antes de que se puedan cargar en el modelo de Power BI.
+
+Por otro lado, DAX es un lenguaje de cálculo de datos analíticos que se puede utilizar para un análisis de datos en profundidad durante la fase de visualización de datos.
+
+M y DAX no dependen el uno del otro y siguen estructuras lógicas totalmente diferentes, y tienen códigos subyascentes diferentes. M y DAX no se pueden usar simultánreamente ya que el lenguaje M se usa en Query Editor, mientras que DAX se usa principalmente en el modelo de vista de datos.
+
+---
+
 
