@@ -403,7 +403,11 @@ Una vez creada esta medida, se procede a arrastrar al campo de valores.
 Esto mostrará el porcentaje de participación por tipo de cliente en cada ciudad.
 
 **All Except**
----
 
 Es una variante del tipo de filtro all, ignora todos los campos excepto el que se está mencionando.
 
+---
+
+## Calculate on filter
+
+Se trabajará con el ejemplo anteriormente creado
