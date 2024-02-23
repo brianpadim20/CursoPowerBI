@@ -644,3 +644,117 @@ Realizar un acumulado de pagos totales.
 ---
 
 ## DATEADD
+
+Dateadd recibe 3 argumentos
+- Dates: es el campo de fechas
+- Número de intervalos que se desplazará hacia adelante o hacia atrás
+- Intervalo o tipo de intervalo: es en el cual se va a desplazar el número de intervalos por un tipo, ya sea por día, mes, semestre o año
+
+Después de cargar la base con la cual se va a trabajar.
+
+El objetivo será desplazar los pagos una fecha o un día siguiente y uno hacia atrás.
+
+Para esto se apoya de la función calculate con la función date add y se visualizará en una matríz.
+
+    Para desplazar hacia atrás:
+    Medida1 = CALCULATE(SUM(base_pagos[pgo_tot]), DATEADD(base_pagos[fecha],-1,DAY))
+
+    Para desplazar hacia adelante:
+    Medida1 = CALCULATE(SUM(base_pagos[pgo_tot]), DATEADD(base_pagos[fecha],1,DAY))
+
+---
+
+## Tablas de tipo calendario
+
+Es una tabla que contiene columna o columnas de fecha y derivados de esta.
+
+La práctica de estas va a optimizar el modelo y se podrá utilizar el lenguaje DAX de una forma más avanzada.
+
+Los requisitos para usarla principalmente es que los campos de tipo fecha ventan únicos (debe ser único y no se puede repetir)
+
+Para hacer la tabla:
+
+- Abrir la base
+- Ir a la parte de modelado, en el apartado de cálculos
+- Click en nueva tabla
+    - Poner el nombre de la tabla 
+    - Para los valores usar la función calendar
+
+            Tabla1 = CALENDAR(MIN(base_pagos[fecha]),MAX(base_pagos[fecha]))
+
+        Con esto creará fechas únicas que abarca todas las fechas que vienen en la base con la que se trabaja.
+
+- Para poder convertirla en una tabla de tipo calendario
+- Seleccionar la tabla, ir a herramientas de tabla
+- En la sección de calendarios click en  marcar la tabla como fechas.
+- Desplega un menú donde dice se selecciona la columna de fecha donde pide los requisitos
+
+Después de seguir esos pasos, cambia el formato de esa tabla y será de tipo fecha.
+
+Ahora se pueden crear los campos, como el día de la fecha, el mes de la fecha y el año, de la siguiente manera:
+
+Para el año:
+
+- Seleccionar la tabla, nueva columna
+- Poner el nombre = year(-nombreTabla[Date])
+        
+        Año = YEAR(Tabla1[Date])
+
+Para el día:
+- Seleccionar la tabla, nueva columna
+- Poner el nombre = day(-nombreTabla[Date])
+
+        Día = DAY(Tabla1[Date])
+
+Para el mes:
+- Seleccionar la tabla, nueva columna
+- Poner el nombre = month(-nombreTabla[Date])
+
+        Día = month(Tabla1[Date])
+
+- Semana del año:
+- Seleccionar la tabla, nueva columna
+- Poner el nombre = weelmi,(-nombreTabla[Date])
+
+        Semana_Año = WEEKNUM(Tabla1[Date])
+
+---
+
+## Variables DAX
+
+Las variables en DAX son muy usadas, debido a que es una forma de usar DAX de forma estructurada, la cual ayudará a mejorar el rendimiento, es más fácil depurar cuando están las variables definidas, se mejora la comprensión al momento de saber lo que se está realizando y disminuye la complejidad.
+
+**EJERCICIO**
+
+Obtener los pagos acumulados de la segunda semana de diciembre a los cuales se les restarán los pagos acumulados de la primera semana de diciembre y se van a dividir entre los pagos acumulados de la primera semana de diciembre para ver en qué porcentaje aumentan o disminuyen los pagos en la segunda semana de diciembre respecto a la primera.
+
+- Crear una matriz
+
+
+Si se crea una nueva medida así:
+
+        Medida1 = DIVIDE(CALCULATE(SUM(base_pagos[pgo_tot]), DATESINPERIOD(base_pagos[fecha],DATE(2020,12,08),7,DAY)) - CALCULATE(SUM(base_pagos[pgo_tot]),DATESINPERIOD(base_pagos[fecha],MIN(base_pagos[fecha]),7,DAY)),CALCULATE(SUM(base_pagos[pgo_tot]),DATESINPERIOD(base_pagos[fecha],MIN(base_pagos[fecha]),7,DAY)),0)
+
+Es un poco complicado de hacer, difícil de entender y no es lo óptimo
+
+Si se desea hacer usando una variable:
+
+Crear una nueva medida y hacer lo siguiente:
+
+    variable1 = VAR PAGOS_SEMANA1 = CALCULATE(SUM(base_pagos[pgo_tot]),DATESINPERIOD(base_pagos[fecha],MIN(base_pagos[fecha]),7,DAY))
+    VAR PAGOS_SEMANA2 = CALCULATE(SUM(base_pagos[pgo_tot]),DATESINPERIOD(base_pagos[fecha],DATE(2020,12,08),7,DAY))
+    RETURN DIVIDE(PAGOS_SEMANA2 - PAGOS_SEMANA1,PAGOS_SEMANA1,0)
+
+Así es más fácil de trabajar y mejora el rendimiento ya que solo se calculan una vez los pagos de la semana uno y semana dos
+
+---
+
+## Categorización de datos
+
+Sirve para mejorar la experiencia al momento de realizar visualizaciones, ya que Power BI va a interpretar de una manera en la que se categoricen estos datos.
+
+Para poder visualizar la categorización de datos es necesario:
+
+- Seleccionar el dato o el campo al cual se le va a hacer dicha categorización.
+
+- En el apartado propiedades, donde dice categoría de datos aparece sin clasificar y seleccionar el valor correcto.
