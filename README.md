@@ -758,3 +758,101 @@ Para poder visualizar la categorización de datos es necesario:
 - Seleccionar el dato o el campo al cual se le va a hacer dicha categorización.
 
 - En el apartado propiedades, donde dice categoría de datos aparece sin clasificar y seleccionar el valor correcto.
+
+---
+
+
+# Report View
+
+La interfaz en la parte de la visualizaciones es la que ayuda a crear gráficos y se conoce como report view, ahí se pueden encontrar los gráficos predeterminados que ofrece Power BI.
+
+**Primera visualización**
+
+Crear una visualización donde se muestre día por día los pagos que se han realizado por el tipo de cliente en una barra apilada, es decir, todas tendrán la misma altura y estará segmentado dependiendo del porcentaje del tipo de cliente en los pagos
+
+**Interacción y tooltips**
+
+Tooltips es información sobre herramientas, los cambios que se necesiten hacer irán directamente en el apartado de información sobre herramientas.
+
+Si se quiere poner un campo adicional, entonces solamente se arrastra y ya; esto sirve para que al pasar el mouse por cierta parte de la gráfica muestre información.
+
+
+**Tootips avanzados**
+Un tooltip avanzado se diferencia del normal en que muestra la información sobre la gráfica y abrirá una nueva gráfica con información sobre la herramienta.
+
+**EJERCICIO**
+Crear  una gráfica de barras donde se muestre la sucursal y la venta trimestral y al poner el mouse sobre la barra perteneciente a la venta trimestral de alguna sucursal, debe desplegar como info de la herramienta o tooltip la composición de la venta trimestral (enero, febrero y marzo)
+
+Pasos:
+
+- Cargar la tabla con la que se va a trabajar.
+- Crear un gráfico de columnas agrupadas o apiladas
+- En el eje x colocar el nombre de las sucursales y en el y la venta trimestral.
+- Mostrar las etiquetas de los datos desde el formato
+- Agregar el tooltip básico de enero febrero y marzo, simplemente arrastrando los campos que se quieren consultar directamente en el apartado de información sobre herramientas.
+- Para lograr hacer un tooltip avanzado:
+    - Crear una nueva página y renombrar como tooltip1
+    - Cambiar el tamaño de página a información sobre herramientas y dará un tamaño a como se verá en el informe o la página 1
+    - Seleccionar la gráfica de barras agrupadas o apiladas
+    - Activar el tooltip
+        - Seleccionar afuera del gráfico, en la página
+        - En configuración de lienzo seleccionar en el apartado tipo información sobre la herramienta
+    - Ahora para que muestre el tooltip avanzado sobre la gráfica:
+        - Click sobre la gráfica
+        - Ir a formato
+        - Click en propiedades
+        - Información sobre herramientas
+        - En página seleccionar tooltip1
+
+---
+
+## Jerarquía, drill down and drill  up
+
+Una jerarquía es aquella que divide o segmenta los artículos en diferentes grupos.
+
+**EJERCICIO**
+Para crear una jerarquía con base a las fechas, teniendo como jerarquía la semana del año y la segunda jerarquía la fecha.
+
+- Crear una gráfica la cual será columna agrupada
+- Poner pago total en el eje Y
+- Crear la jerarquía con base a semana del año.
+    - Pararse sobre el campo al cual se le creará la jerarquía, click derecho y crea unos iconos del lado izquiero a la jerarquía
+    - Para agregar campos a la jerarquia click derecho sobre el campo y guardarlo en la jerarquia
+
+Para hacer el drill down y el drill up; en la gráfica aparecen 2 botones para ir cambiando de jerarquía, la flecha hacia arriba es para subir en la jerarquía, las dos flechas hacia abajo es para bajar de jerarquía
+
+---
+
+## Ordernaciones
+
+Si se trabaja con un gráfico de barras, el eje x debe ser de tipo categórico para que pueda habilitar la ordenancia y se pode ordenar de manera ascendente y descendente
+
+---
+
+## Slicer
+
+Es un tipo de filtro que permite filtrar los objetos de visualizaciones o bases a través de este campo.
+
+Para hacer esto:
+
+- Cargar las tablas con las que se vaya a trabajar
+- Hacer la relación correspondiente entre ids
+- Pasar al apartado de gráficos
+- Seleccionar el tipo de dato segmentación de datos, este es un filtro llamado Slicer
+- Agregar el campo por el cual se quiere filtrar
+- Para que quede como un menú desplegable ir a los estilos (formato)
+    - selecciona configuración de la segmentación
+    - Seleccionar el estilo menú desplegable
+
+Para darle formato al Slicer
+- Quitar el encabezado
+- Agregar título y ponerlo como corresponda
+- Centrarlo
+- Modificar el formato de los elementos (datos que aparecen cuando se despliega el menú, es decir, datos a filtrar)
+
+Ahora hace filtros por los elementos de la sucursal.
+
+- Agregar un gráfico nuevo
+- En el eje X poner los nombres con los cuales se hicieron los filtros 
+
+Y así cualquiera que se seleccione, mostrará su gráfico correspondiente
