@@ -583,3 +583,33 @@ El cuarto es donde queremos que termine el acumulado y empiece otra vez
 
         YTD = TOTALYTD(SUM(base_pagos[pgo_tot]),base_pagos[fecha])
 
+
+**Dates in period**
+---
+
+Devuelve las fechas de un periodo especificado; recibe 4 parámetros obligatorios, los cuales son:
+
+- Fechas: fechas de las cuales tomará como referencia
+- Fecha de inicio: de las fechas que se da como referencia, en cual se quiere que inicie
+- Número de intervalos: Número de intervalos a partir de la fecha de inicio, por ej; si se pide que inicie del 1 de abril del 2023 y que vaya de 1 en 1 en el # de intervalos por día irá uno a uno hasta terminar con el último valor del campo dates (primer parámetro).
+
+    El número de intervalos se puede dar en positivo y negativo; si se da en positivo será desde la fecha de inicio hacia adelante, si se da negativo será de la fecha de inicio hacia atrás, depende del intervalo que se de, puede ser de día, mes o año.
+
+- Intervalo deseado
+
+Una vez cargada la tabla con la que se va a trabajar, crear una nueva medida
+
+**EJEMPLO**
+
+Obtener una medida la cual calcule un acumulado de pagos de 3 en 3 días hacia adelante y hacia atrás.
+
+- Hacia adelante:
+
+        DIP_ADELANTE = CALCULATE(SUM(base_pagos[pgo_tot]), DATESINPERIOD(base_pagos[fecha],MIN(base_pagos[fecha]),3,DAY))
+
+- Hacia atrás:
+
+        DIP_ADELANTE = CALCULATE(SUM(base_pagos[pgo_tot]), DATESINPERIOD(base_pagos[fecha],MIN(base_pagos[fecha]),-3,DAY))
+
+Si en el parámetro start date se le da una fecha anterior a la fecha mínima del campo, lo va a ignorar, debido a que ese valor no se encuentra en la columna, es decir, siempre empezará en la primer fecha de la columna así se le dé una fecha anterior.
+
