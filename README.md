@@ -613,3 +613,34 @@ Obtener una medida la cual calcule un acumulado de pagos de 3 en 3 días hacia a
 
 Si en el parámetro start date se le da una fecha anterior a la fecha mínima del campo, lo va a ignorar, debido a que ese valor no se encuentra en la columna, es decir, siempre empezará en la primer fecha de la columna así se le dé una fecha anterior.
 
+---
+
+## Total acumulado
+
+En esta parte del curso se aprenderá a tener un total acumulado manejando las fechas y realizando algunos filtros con ella.
+
+En este caso se puede usar la función filter la cual devuelve una tabla filtrada.
+
+La función filter recibe 2 argumentos
+
+- El primer argumento recibe la tabla.
+- El segundo las expresiones de filtrado.
+
+**EJERCICIO**
+
+Realizar un acumulado de pagos totales.
+
+- Cargar y depurar la base con la cual se va a trabajar.
+- Crear una nueva medida
+
+        Medida1 = CALCULATE(SUM(base_pagos[pgo_tot]),FILTER(ALLSELECTED(base_pagos),base_pagos[fecha]<=MAX(base_pagos[fecha])))
+
+- Ir a la parte de visualización y crear una matriz para poder verlo de mejor forma
+
+    - Arrastrar en campo fecha a filas
+    - Pagos totales a valores
+    - Medida a valores
+
+---
+
+## DATEADD
