@@ -437,3 +437,149 @@ Y ara Puebla o Queretaro:
 
     VTRIM_ORO_PUE_QRO = CALCULATE(SUM(base_soc[venta_trimestral]), base_soc[tipo_cliente] == "Cliente ORO" && (base_soc[nombre_suc] == "PUE" || base_soc[nombre_suc] == "QRO"))
 
+---
+
+## Funciones: Sum, Divide, Count, Average, Max, Win
+
+**Función Sum**
+
+Solo requiere el campo de la columna el cual va a sumar, debe ser de tipo no caracter (numérico de preferencia) y seguir estos pasos:
+
+- Ir a nueva medida en la pestaña de inicio y dar click en nueva medida
+- Poner el nombre del campo al lado derecho
+- Poner la función sum con la tabla y la columna que se quiere sumar del lado derecho
+
+**EJEMPLO**
+
+        SUMA_VTRIM = SUM(base_soc[venta_trimestral])
+
+**Función Count**
+Cuenta una cantidad específica de un campo
+
+**EJEMPLO**
+
+        Conteo_Clientes = COUNT(base_soc[id_cliente])
+
+**Función promedio**
+
+Se usa la función divide para sacar promedio y se dividirá la venta trimestral entre los clientes.
+
+**EJEMPLO**
+
+    Promedio de venta trimestral por cliente:
+
+    Prom_VTRIM_Cliente = DIVIDE([SUMA_VTRIM],[Conteo_Clientes],0)
+
+    Promedio de venta por cliente
+    AVG_VTRIM = AVERAGE(base_soc[venta_trimestral])
+
+**Función MAX y MIN**
+Para mostrar el valor máximo y el mínimo de un campo
+
+**EJEMPLO**
+
+        Para el máximo:
+        MAX_VTRIM = MAX(base_soc[venta_trimestral])
+
+        Para el mínimo:
+        MIN_VTRIM = MIN(base_soc[venta_trimestral])
+
+---
+
+## Dax Fechas
+
+![Fechas](Imagenes%20de%20relevancia/DAX%20Fechas.png)
+
+- **Función Calendar**: Devuelve una tabla con una sola columna denominada "Fecha" que coniene un conjunto contiguo de fechas
+
+- **Función Calendarauto**: Devuelve una tabla con una sola columna denominada "Fecha" que contiene un conjunto contiguo de fechas
+
+- **Función Date**: Devuelve la fecha especificada en formato de fecha y hora
+
+- **Función Datediff**: Devuelve el recuento de límites de intervalo cruzados entre dos fechas.
+
+- **Función DateValue**: Convierte una fecha en forma de texto en una fecha en formato fecha y hora
+
+**Calendar y calendarauto**
+
+La función Calendar sirve para devolver una secuencia de fechas y recibe como parámetro la fecha mínima y máxima (inicio y fin). Entre estas fechas saca una frecuencia o una secuencia de fechas que serán continuas e irán limitadas por una fecha inicio y  una fecha fin.
+
+Se usa cuando se quieren obtener fechas únicas de un campo, y se usan normalmente para crear una nueva columna  y formar el esquema estrella.
+
+Lo primero para trabajar con estas funciones es cargar la base y hacer su respectiva limpieza.
+
+**Para calendar:**
+---
+- Ordenar la fecha en forma ascendente
+- Crear una nueva tabla
+    - Ir a herramientas de tablas
+    - Nueva tabla, llamarla tabla 1 = Calendas(fecha de inicio, fecha fin)
+            
+            Tabla1 = CALENDAR(MIN(base_pagos[fecha]),MAX(base_pagos[fecha]))
+
+        Creará una nueva tabla con las fechas de la máxima a la mínima sin repetirse para los datos que se crearon el mismo día
+
+**Para calendarauto**:
+---
+
+Automáticamente selecciona el campo fecha de la base pagos y creará una secuencia.
+
+- Click en la base
+- Click en crear nueva tabla
+- Abre una igualdad; a la izquierda el nombre de la tabla y a la derecha el calendar auto
+    - Si no se le dan parámetros tomará la fecha inicial y creará una tabla de todos los días del año
+    - Si se le da un parámetro (solo recibe parámetros del 1 al 12) ignora el mes del parámetro que se le da, es decir ignora el parámetro que se le da hasta el siguiente mes teniéndolo en cuenta para el año entrante.
+
+La aplicación mas práctica es para poder obtener el modelo estrella  y optimizar el modelo.
+
+**Función DatesYTD**:
+---
+
+Lo primero que se hace es cargar la base y hacer su limpieza.
+
+Funciona de igual forma que la función Calendar, crea una secuencia con valores únicos a partir de un campo de fecha
+
+- Crear una nueva tabla
+- Ponerle su nombre y llamar a la función dateytd, recibe un parámetro obligatorio, el cual es datesytd
+        
+        Tabla3 = DATESYTD(base_pagos[fecha])
+
+    Creará una nueva tabla con valores únicos con base a la información que suministró en el campo fecha de la base.
+
+    Esta no es su función principal, puesto que dicha función principal es poder obtener el acumulado a partir de una variable numérica y realizar el acumulado fecha por fecha a partir de un campo por fecha.
+
+Crear una visualización de esta tabla en la matriz.
+
+Poner la fecha en el valor filas y los valores que se le quieran dar en el valor valores.
+
+Apoyándose en la función datesytd para ir calculando el acumulado del día 1 hasta el día 29
+
+- Crear una nueva medida, ponerle el nombre y en los valores con la función calculate y pide como parámetros la expresión, será la suma de la columna que se calcula y se filtra usando la función datesytd diciéndo que lo filtre por el campo de fechas de la base pago y así irá creando el acumulado.
+
+        DATESYTD = CALCULATE(SUM(base_pagos[pgo_tot]), DATESYTD(base_pagos[fecha]))
+
+    Una vez creada la medida, arrastrarla a la parte de valores.
+
+    Esta función tiene un parámetro opcional hasta cierto día poniéndo una coma y la fecha YYYY-MM-DD
+
+        ,"YYYY-MM-DD"
+
+**TotalYTD**
+---
+
+Evalúa una expresión especificada a lo largo del intervalo que empieza el primer día del año y temrina con la última fecha de la columna de fecha especificada, después de aplicar los filtros especificados, trae 2 parámetros obligatorios y 2 opcionales.
+
+El primer parámetro obligatorio es una expresión (suma, resta, etc).
+
+El segundo parámetro es dates, el cual recibe una columna o una expresión de tipo fecha
+
+El tercero da opción de filtrar, como se hace en calculate
+
+El cuarto es donde queremos que termine el acumulado y empiece otra vez
+
+**EJEMPLO**
+
+- Una vez se tenga la tabla, se creará una nueva medida en la parte de cálculos en la pestaña de inicio.
+
+        YTD = TOTALYTD(SUM(base_pagos[pgo_tot]),base_pagos[fecha])
+
