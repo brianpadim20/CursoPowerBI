@@ -988,3 +988,83 @@ Se le pueden agregar valores categóricos, sin embargo no será correcta la inte
 
 A diferencia del tipo tabla que solo se especializa en recibir valores o columnas numéricas y obtener un resumen a partir de ellas, la matriz tiene a parte de eso, poderlo segmentar por filas y columnas, estas normalmente suelen ser variables tipo categórico, es decir, se puede ver una mejor distribución de estas variables categóricas respecto a las expresiones o campos numéricos.
 
+**Gráfico de línea y columna**
+
+Es un objeto de visualización de PowerBI que permite combinar estos dos tipos de gráficos en un solo. Es ideal cuando se quieren comparar dos variables o expresiones que tienen rangos muy distintos; es decir, si se trazan en un mismo eje no va a poder compararse o apreciarse bien la diferencia entre esto, debido a que uno tiene una escala y otro tiene una escala distinta
+
+**Gráfico de embudo**
+
+(Pendiente el gráfico)
+
+Es un objeto de visualización que permite analizar diferentes variables de importancia, ya sea pagos, venta, recuento de clientes, a través de un proceso que debe ser secuencial, es decir no se puede pasar a la parte 2 del proceso sin antes haber pasado la parte 1.
+
+También se recomienda usar cuando se tiene al principio del proceso la mayor cantidad de datos y al final del proceso una menor cantidad de datos.
+
+**Treemap**
+
+Es un gráfico que ofrece herramientas parecidas a un gráfico por columnas, pero es más fácil poder apreciar las jerarquías sin necesidad de hacer un drill up o drill down para profundizar en los datos.
+
+Ofrece lo mismo, pero muestra de mejor forma que un gráfico de columnas las jerarquías.
+
+También ordena de mayor a menor, teniendo en la parte superior izquierda el valor o promedio mas grande y en la inferior derecha el más pequeño.
+
+**Tarjeta**
+
+Este objeto permite mostrar únicamente un valor. A veces es importante hacer seguimiento a solo un valor de interés; puede ser el valor de la venta anual, total de la venta por mes, venta trimestral, etc. Pero solo se quiere ver el valor.
+
+**Map**
+
+Es una visualización que ofrece publicar mediante geolicalización un par de coordenadas que se le den o una dirección.
+
+Es útil cuando se requiere ver la distribución por zona geográfica de los clientes o de los pagos o cualquier valor de interés
+
+**KPI**
+
+Indicador que permite saber que tan lejos estamos o donde nos encontramos con base a una meta u objetivo trazado.
+
+Es útil para darle seguimiento contínuo con base a una meta.
+
+**Filtros en gráficos**
+
+Permite realizar segmentaciones o escoger ciertos valores de un campo que solo afectarán a este objeto visual
+
+**Formato condicional en matriz**
+
+Es el formato que aparece mediante ciertas condiciones, es decir, solo se muestra después de que pasen un conjunto de reglas.
+
+- Después de crear la matríz, ir a la parte de formato, está el apartado formato condicional.
+
+**Formato condicional en gráficos**
+
+Funciona parecido al de matriz, se intentará resaltar la parte de la gráfica donde se tenga un número mayor o menor.
+
+**Roles y seguridad**
+
+- Rol: Conjunto de reglas o filtros predeterminadas que se le dan al informe para que lo vea determinado usuario.
+
+- Seguridad: Determinar los roles al usuario.
+
+*Para crear un rol:*
+
+- Ir a modelado
+- Administrar roles
+- Crear
+- Poner el nombre del rol
+- Seleccionar la tabla de donde se sacará la expresión de este filtro
+- Poner la expresión DAX del filtro de tabla
+    - Para que DAX entienda que es un campo se pone en corchetes, ejemplo
+        [nombre_sucursal] == CDMX
+    - Guardar
+- Ir a modelado, seguridad ver como
+- Se puede ver el perfil de acuerdo al rol, ahora se aplica el filtro para todos los objetos visuales solo para el campo seleccionado
+- Ir a inicio, publicar y publicará el informe en el área de trabajo
+*Para administrar la seguridad o asignar los roles al usuario*
+
+- Abrir el navegador
+- Ingresas a la app de power bi
+- Enviar el trabajo donde se debe tener publicado el informe anteriormente
+- Ir a la parte de la base de datos
+- Seleccionar los 3 puntos
+- Click en seguridad y aparecen los roles
+- Asignar a las personas o gurpos que pertenecerán a este rol. Agregar la dirección de correo electrónico de la persona que tendrá los permisos para ver este rol
+
