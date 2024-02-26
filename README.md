@@ -856,3 +856,135 @@ Ahora hace filtros por los elementos de la sucursal.
 - En el eje X poner los nombres con los cuales se hicieron los filtros 
 
 Y así cualquiera que se seleccione, mostrará su gráfico correspondiente
+
+**Sincronizar Slicers**
+---
+
+Primero crear la(s) gráfica(s) con la(s) que se desee trabajar (recordar poner el eje x como tipo categórico)
+
+Luego agregar los slicer (son 2)
+- Un slicer para campo de fecha
+- Otro para tipo de cliente
+
+En este momento, los dos filtros afectarán las visualizaciones, para hacer que no afecte alguna se hace esto:
+
+- Seleccionar el slicer
+- Ir al menú de formato (parte superior, centro de la pantalla)
+- Click en editar interacciones
+- Elegir a qué objetos visuales afectará y a cuales no este filtro. Para decirle que no afecte a un filtro en específico se le da click en el ícono de prohibido que tiene
+
+
+**Tipos de filtros**
+---
+
+Al seleccionar la visualización sobre la cual se aplicará el filtro.
+
+Hay 3 opciones
+- **Filtro de este objeto visual**: Solo afectará al filtro del objeto visual seleccionado
+- **Filtro de esta página:** los filtros o filtro agregado afectará a todos los objetos visuales de la página
+- **Filtro de todas las páginas:** Afectará a todas las páginas, de la 1 hasta la página n
+
+---
+
+## Top /Bottom
+
+- **Top**: es una herramienta que permite filtrar por categoría, para obtener las mejores categorías con base a una expresión, puede ser promedio de ventas, ventas totales, ventas mensuales, trimestrales, pagos, etc..
+- **Bottom**: Es lo contrario al top, es la herramienta que permite segmentar las peores categorías, o las categorías que han tenido menos relevancia con base a la expresión, puede ser promedio de ventas, ventas totales, ventas mensuales, trimestrales, pagos, etc..
+
+**Para hallar el top:**
+- Crear una nueva medida
+- Poner el nombre de la medida
+- Enumerar por orden ascendente, dependiendo la venta trimestral de cada sucursal, es decir la que tenga mayor venta como # 1 y la de menor venta como número n
+- Usar la función rankx la cual devuelve la clasificación de una expresión evaluada en el contexto actual de la lista de valores para la expresión evaluada por cada fila de tabla especificada. 
+
+    Rankx recibe 5 argumentos (2 obligatorios y 3 opcionales):
+    - tabla a la cual se le hará el análisis
+    - Expresión (calculate, sum, etc)
+    - Argumento de valor (se utiliza cuando se quiere comprar la venta trimestral contra este valor)
+    - orden (asc o desc)
+    - Ties ( si se repiten 2 sucursales con la misma venta las toma como valores diferentes)
+
+**NOTA**
+---
+Como para el ejercicio trabajado en el archivo "top" se quieren , entonces se le dice que ignore de la base todos los filtros correspondientes a la columna de sucursal, porque se va a mostrar con una matriz y se quiere que lo compare con el total de la venta, si no se pone el filtro de "ALL" lo va a comprar con la venta de cada sucursal, es decir, siempre dará el valor de 1
+
+Entonces, el código DAX quedaría así:
+
+    Top = RANKX(ALL(base_soc[nombre_suc]),CALCULATE(SUM(base_soc[venta_trimestral])),,DESC,Dense)
+
+RankX devuelve una lista de números en la cual el 1 corresponde a la mayor venta, porque se puso que ordenara descendentemente, y teniendo como menor venta el nombre sucursal sin clasificación
+
+**Para hallar el bottom:**
+
+Para enumerar a partir de la venta menor es algo similar, con la diferencia que el orden en vez de desc se pone como asc:
+
+    Top = RANKX(ALL(base_soc[nombre_suc]),CALCULATE(SUM(base_soc[venta_trimestral])),,DESC,Dense)
+
+Ahora, si se quieren mostrar el top 3 de sucursales que mas han vendido y que menos han vendido en una matriz a parte, se hace lo siguiente:
+
+- Crear una nueva medida
+
+        TOPBOTTOM = IF([Top]<=3 || [bottom] <= 3, 1, 0)
+
+- Arrastrar la medida para asegurarse que haya quedado correcto: 
+
+![top-bottom](Imagenes%20de%20relevancia/top_bottom.png)
+
+- Para poder mostrar las que tuvieron mayor y menor venta en una matriz, basta con crear una nueva matriz,
+
+- arrastrar el nombre de la sucursal a las filas
+- Arrastrar el valor de la sumatoria de la venta trimestral a los valores 
+- Filtrar este objeto visual con la medida creada, arrastrando la medida hacia el filtro y ponerlo así:
+
+![filtro](Imagenes%20de%20relevancia/filtro.png)
+
+- Finalmente dar click en agregar filtro.
+
+---
+
+# Gráficos
+---
+
+**Gráfico de columnas y gráfico de columas 100% apilado o agrupado**
+
+El gráfico de columnas sirve para graficar o mostrar los resultados de una expresión dividido en un eje x; puede ser por categorías o contínuo
+
+**Gráfico circular**
+
+Es conveniente usarlo cuando hay menos de 7 categorías para interpretar fácil los datos
+
+**Gráfico de líneas**
+
+Sirve para visualizar una o más expresiones a través de un eje x, es decir, el eje x puede ser continuo o categórico, es recomendable usar el gráfico de línea casi siempre para mostrar en el eje x un tipo de eje x contínuo.
+
+Sirve para calcular o visualizar una historia; puede ser historico de pagos, ventas, etc.
+
+Las fechas pueden ser anuales, trimestrales, diaras, semanales, etc.
+
+También se pueden dividir en categorías.
+
+**Gráfico de área**
+
+Es similar a un gráfico de líneas, con la diferencia que para cada valor del eje x va a iluminar las partes o valores debajo de este, de ahí su nombre.
+
+El gráfico de área apilada sirve para comparar entre diferentes categorías, es decir, del eje x se traza una expresión (sumatoria, promedio u otra operación artimética) y se podrá comparar con otras categorías, también se puede comparar entre fechas o entre año o meses.
+
+**Gráfico de dispersión**
+
+Es un tipo de gráfico que permite graficar en dos dimensiones, es decir, con base en el eje X y en el eje Y, va a buscar las coordenadas correspondientes del eje x y las va a graficar en el punto (X,Y)
+
+Son muy útiles para visualizar datos atípicos, también se puede visualizar la correlación o la relación entre dos variables.
+
+Permite pasar del gráfico de dispersión a uno de burbujas, en el cual, cada burbuja tendrá un tamaño con respecto a otra variable.
+
+
+**Objeto de visualización tipo tabla**
+
+Sirve para obtener un resumen de valores numéricos.
+
+Se le pueden agregar valores categóricos, sin embargo no será correcta la interpretación con respecto a lo que muestra
+
+**Gráfico de matriz**
+
+A diferencia del tipo tabla que solo se especializa en recibir valores o columnas numéricas y obtener un resumen a partir de ellas, la matriz tiene a parte de eso, poderlo segmentar por filas y columnas, estas normalmente suelen ser variables tipo categórico, es decir, se puede ver una mejor distribución de estas variables categóricas respecto a las expresiones o campos numéricos.
+
